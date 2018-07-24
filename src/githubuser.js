@@ -37,6 +37,14 @@ class Githubuser extends Component {
             });
     }
 
+    onHandleClickCancel() {
+        this.setState({
+            userName: '',
+            user: null,
+            repository: null,
+        });
+    }
+
     render() {
         const userInfo = (this.state.user) 
                 ?   <div className="thumbnail border-marge">
@@ -46,16 +54,16 @@ class Githubuser extends Component {
                             <p>...</p>                        
                         </div>
                     </div> 
-                :   "Digite o usuário";
+                :   null;
         const userRepositories = (this.state.repository && this.state.repository.length > 0)
                 ?                       
                     this.state.repository.map((item, key) => {
                         return (
                         <div className="thumbnail border-marge" key={key}>  
-                            <div className="caption">
-                                <h4>{item.full_name}</h4>                            
+                            <div>
+                                <h5>{item.name}</h5>                            
                             </div>                      
-                            <div key={key}><a href="{item.html_url}" target="_blank">{item.html_url}</a></div>
+                            <div key={key}><a href="{item.html_url}" target="_blank">{item.name}</a></div>
                             <div>Criado em: {item.created_at}</div>
                         </div> 
                         )
@@ -66,18 +74,19 @@ class Githubuser extends Component {
                 <h4>Informações do usuário</h4>
                 <hr className="hr-margin" />
                 <div className="row">
-                    <div className="col-sm-12 col-md-12 col-lg-12">
+                    <div className="col-sm-12 col-md-12">
                         <div className="input-group">                        
                             <input type="text" name="userName" onChange={this.onHandleChange.bind(this)} value={this.state.userName} className="form-control" placeholder="Digite o nome do usuário" required/>                    
                             <span className="input-group-btn">
                                 <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}>Carregar</button>
+                                <button className="btn btn-danger" type="button" onClick={this.onHandleClickCancel.bind(this)} ><span class="glyphicon glyphicon-trash"></span></button>
                             </span>
                         </div>
                     </div>   
-                    <div className="col-sm-4 col-md-4 col-lg-4">
+                    <div className="col-sm-4 col-md-4">
                         {userInfo}
                     </div>
-                    <div className="col-sm-8 col-md-8 col-lg-8">
+                    <div className="col-sm-8 col-md-8">
                         {userRepositories}
                     </div>
                 </div>

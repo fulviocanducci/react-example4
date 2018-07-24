@@ -34,6 +34,13 @@ class List extends Component {
         this.setState({[name]: value});
     }
 
+    onHandleClickButtonCancel() {
+        this.setState({
+            textInfo: '',
+            listInfo: []
+        });
+    }
+
     render() {              
         return (
             <Body title="Lista de Informações">
@@ -43,7 +50,8 @@ class List extends Component {
                     change={this.onHandleChange.bind(this)}
                     click={this.onHandleClickButtonAdd.bind(this)}
                     listInfo={this.state.listInfo}
-                    clickCount={this.onHandleClickButtonAddCount.bind(this)} />
+                    clickCount={this.onHandleClickButtonAddCount.bind(this)}
+                    clickCancel={this.onHandleClickButtonCancel.bind(this)} / >
             </Body>
         )
     }

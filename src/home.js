@@ -4,7 +4,7 @@ class Home extends Component {
     render() {
         return (
             <Body title="Home Page">
-                <div>Home Page Componente Body</div>
+                <div>Home Page - Estudos React</div>
             </Body>
         );
     }
