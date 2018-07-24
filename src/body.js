@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-class Body extends Component {
-    constructor(props) {
-        super(props);
-    }
+class Body extends Component {    
     render() {
         return (
             <div>

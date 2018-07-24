@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Item } from './models/item';
 import Register from './register';
 import Body from './body.js';
+
 class List extends Component {    
     constructor(props) {
         super(props);
@@ -13,50 +14,36 @@ class List extends Component {
     }
 
     onHandleClickButtonAdd() {
-        this.state.listInfo.push(new Item(this.state.textInfo));
-        this.setState({
-            listInfo: this.state.listInfo
-        });
+        if (this.state.textInfo && this.state.textInfo.length > 0) {
+            this.state.listInfo.push(new Item(this.state.textInfo));
+            this.setState({ listInfo: this.state.listInfo, textInfo: '' });
+        } else {
+
+        }        
     }
 
     onHandleClickButtonAddCount(index) {               
         let cp = [...this.state.listInfo];
         cp[index].count = (cp[index].count + 1);
-        this.setState({
-            cp
-        });
+        this.setState({ cp });
     }
 
-    onHandleChange(e) {        
+    onHandleChange(e) {
         const name = e.target.name;
         const value = e.target.value;
-        this.setState({
-            [name]: value
-        });
+        this.setState({[name]: value});
     }
 
-    render() {
-        const retList = (this.state.listInfo && this.state.listInfo.length > 0)
-                ? this.state.listInfo.map((value, index) => {
-                    return (
-                        <li className="list-group-item" key={index}>
-                            {value.text}
-                            <span className="badge list-cursor-pointer" onClick={this.onHandleClickButtonAddCount.bind(this, index)}>{value.count}</span>
-                        </li>
-                    );
-                })
-                : null;        
+    render() {              
         return (
             <Body title="Lista de Informações">
                 <Register 
                     name={this.state.nameInfo} 
                     text={this.state.textInfo} 
                     change={this.onHandleChange.bind(this)}
-                    click={this.onHandleClickButtonAdd.bind(this)} />                            
-                <br />
-                <ul className="list-group">
-                    {retList}
-                </ul>   
+                    click={this.onHandleClickButtonAdd.bind(this)}
+                    listInfo={this.state.listInfo}
+                    clickCount={this.onHandleClickButtonAddCount.bind(this)} />
             </Body>
         )
     }

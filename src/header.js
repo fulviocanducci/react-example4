@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link  } from 'react-router-dom';
+
+import './header.css';
+
 import Home from './home.js';
 import List from './list.js';
-import './header.css';
+import Count from './count.js';
+import Githubuser from './githubuser.js';
+
 //https://www.tutorialspoint.com/reactjs/reactjs_router.htm
 //https://reacttraining.com/react-router/web/example/basic
 
@@ -26,6 +31,8 @@ class Header extends Component {
                         <ul className="nav navbar-nav">
                             <li><Link to={'/'} >Home</Link></li>
                             <li><Link to={'/list'} >Lista</Link></li>                            
+                            <li><Link to={'/count'} >Contador</Link></li>   
+                            <li><Link to={'/githubuser'} >GitHub Usuario</Link></li>
                             <li className="dropdown">
                                 <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu de Opções <span className="caret"></span></a>
                                 <ul className="dropdown-menu">
@@ -33,6 +40,10 @@ class Header extends Component {
                                     <li><Link to={'/'} >Home</Link></li>
                                     <li role="separator" className="divider"></li>
                                     <li><Link to={'/list'} >Lista</Link></li>
+                                    <li role="separator" className="divider"></li>
+                                    <li><Link to={'/count'} >Contador</Link></li>                                    
+                                    <li role="separator" className="divider"></li>
+                                    <li><Link to={'/githubuser'} >GitHub Usuario</Link></li>  
                                 </ul>
                             </li>
                         </ul>                        
@@ -42,6 +53,8 @@ class Header extends Component {
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route exact path='/list' component={List} />
+                        <Route exact path='/count' component={Count} />
+                        <Route exact path='/githubuser' component={Githubuser} />
                     </Switch>
                 </div>                                                
             </Router>              

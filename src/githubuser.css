@@ -1,0 +1,18 @@
+.border-marge {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  border-bottom: 3px solid cornflowerblue;
+  border-radius: 2px;
+  margin-top: 10px;
+}
+
+h6 {
+  margin-bottom: 1px;
+  border-bottom: 0px solid #EFEFEF;
+}
+
+.hr-margin {
+  margin-top: 2px;
+  padding-top: 0px;
+}
