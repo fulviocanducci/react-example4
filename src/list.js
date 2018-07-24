@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Item } from './models/item';
 import Register from './register';
-
+import Body from './body.js';
 class List extends Component {    
     constructor(props) {
         super(props);
@@ -47,26 +47,17 @@ class List extends Component {
                 })
                 : null;        
         return (
-            <div>
-                <div className="container theme-showcase" role="main">
-                    <div className="panel panel-default">
-                        <div className="panel-heading">
-                        <h3 className="panel-title">Lista de Informações</h3> 
-                        </div>
-                        <div className="panel-body" >
-                            <Register 
-                                name={this.state.nameInfo} 
-                                text={this.state.textInfo} 
-                                change={this.onHandleChange.bind(this)}
-                                click={this.onHandleClickButtonAdd.bind(this)} />                            
-                            <br />
-                            <ul className="list-group">
-                                {retList}
-                            </ul>     
-                        </div>
-                    </div> 
-                </div>                 
-            </div>
+            <Body title="Lista de Informações">
+                <Register 
+                    name={this.state.nameInfo} 
+                    text={this.state.textInfo} 
+                    change={this.onHandleChange.bind(this)}
+                    click={this.onHandleClickButtonAdd.bind(this)} />                            
+                <br />
+                <ul className="list-group">
+                    {retList}
+                </ul>   
+            </Body>
         )
     }
 }
