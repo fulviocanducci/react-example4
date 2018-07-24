@@ -4,10 +4,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'jquery/src/jquery';
+import 'bootstrap/dist/js/bootstrap.js';
 import './list.css';
 
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import registerServiceWorker from './registerServiceWorker';
+import Header from './header';
+
+ReactDOM.render(<Header />, document.getElementById('root'));
 registerServiceWorker();
