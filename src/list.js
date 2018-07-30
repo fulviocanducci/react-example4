@@ -11,12 +11,19 @@ class List extends Component {
             nameInfo: 'textInfo',
             listInfo: []
         };
+        this.refName = React.createRef();
+        this.onFocusRefName = this.onFocusRefName.bind(this);
+    }
+
+    componentDidMount () {
+        this.onFocusRefName();
     }
 
     onHandleClickButtonAdd() {
         if (this.state.textInfo && this.state.textInfo.length > 0) {
             this.state.listInfo.push(new Item(this.state.textInfo));
             this.setState({ listInfo: this.state.listInfo, textInfo: '' });
+            this.onFocusRefName();
         } else {
 
         }        
@@ -39,6 +46,11 @@ class List extends Component {
             textInfo: '',
             listInfo: []
         });
+        this.onFocusRefName();
+    }
+
+    onFocusRefName() {
+        this.refName.current.focus();
     }
 
     render() {              
@@ -46,6 +58,7 @@ class List extends Component {
             <Body title="Lista de Informações">
                 <Register 
                     name={this.state.nameInfo} 
+                    refName={this.refName}
                     text={this.state.textInfo} 
                     change={this.onHandleChange.bind(this)}
                     click={this.onHandleClickButtonAdd.bind(this)}

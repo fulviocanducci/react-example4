@@ -13,7 +13,17 @@ class Githubuser extends Component {
             user: null,
             repository: null,
         };
+        this.refUserName = React.createRef();        
     }
+
+    componentDidMount () {
+        this.onFocusUserName();
+    }
+    
+    onFocusUserName() {
+        this.refUserName.current.focus();
+    }
+
     onHandleChange(e) {
         const name = e.target.name;
         const value = e.target.value;
@@ -44,6 +54,7 @@ class Githubuser extends Component {
             user: null,
             repository: null,
         });
+        this.onFocusUserName();
     }
 
     render() {
@@ -57,8 +68,7 @@ class Githubuser extends Component {
                             <div>Segue: {this.state.user.following}</div>
                         </div>
                     </div> 
-                :   null;
-                console.log(this.state.user);
+                :   null;                
         const userRepositories = (this.state.repository && this.state.repository.length > 0)
                 ?                       
                     this.state.repository.map((item, key) => {
@@ -79,7 +89,7 @@ class Githubuser extends Component {
                 <div className="row">
                     <div className="col-sm-12 col-md-12">
                         <div className="input-group">                        
-                            <input type="text" name="userName" onChange={this.onHandleChange.bind(this)} value={this.state.userName} className="form-control" placeholder="Digite o nome do usuário" required/>                    
+                            <input type="text" ref={this.refUserName} name="userName" onChange={this.onHandleChange.bind(this)} value={this.state.userName} className="form-control" placeholder="Digite o nome do usuário" required/>                    
                             <span className="input-group-btn">
                                 <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}>Carregar</button>
                                 <button className="btn btn-danger" type="button" onClick={this.onHandleClickCancel.bind(this)} ><span className="glyphicon glyphicon-trash"></span></button>
