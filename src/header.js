@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link  } from 'react-router-dom';
-
 import './header.css';
 
 import Home from './home.js';
@@ -11,8 +10,47 @@ import Githubuser from './githubuser.js';
 //https://www.tutorialspoint.com/reactjs/reactjs_router.htm
 //https://reacttraining.com/react-router/web/example/basic
 
-class Header extends Component {       
-    render() {               
+class Header extends Component { 
+    constructor(props) {
+        super(props);
+        this.state = {
+            menus: [{
+                    to: '/',
+                    name: 'Home',
+                    component: Home
+                }, {
+                    to: '/list',
+                    name: 'Lista',
+                    component: List
+                }, {
+                    to: '/count',
+                    name: 'Contador',
+                    component: Count
+                }, {
+                    to: '/githubuser',
+                    name: 'GitHub Usuario',
+                    component: Githubuser
+                }
+            ]
+        };
+    }    
+
+    componentDidMount() {            
+        var jQueryInstance = window['$'];
+        jQueryInstance('.navbar-nav li a').on('click', function () {
+            jQueryInstance(".navbar-collapse").collapse('hide');
+        });
+    }
+          
+    render() {         
+        const menuItem = (this.state.menus && this.state.menus.length > 0) ?
+            this.state.menus.map(function(item, key){
+                return (<li key={key}><Link to={item.to} >{item.name}</Link></li>);
+            }) : [];  
+        const routeItem =  (this.state.menus && this.state.menus.length > 0) ?
+            this.state.menus.map(function(item, key){
+                return (<Route key={key} exact path={item.to} component={item.component} />);
+            }) : [];          
         return (            
             <Router history="">
                 <div>                                   
@@ -29,33 +67,14 @@ class Header extends Component {
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                         <ul className="nav navbar-nav">
-                            <li><Link to={'/'} >Home</Link></li>
-                            <li><Link to={'/list'} >Lista</Link></li>                            
-                            <li><Link to={'/count'} >Contador</Link></li>   
-                            <li><Link to={'/githubuser'} >GitHub Usuario</Link></li>
-                            <li className="dropdown">
-                                <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu de Opções <span className="caret"></span></a>
-                                <ul className="dropdown-menu">
-                                    {/*<li className="dropdown-header">Opções</li>*/}
-                                    <li><Link to={'/'} >Home</Link></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><Link to={'/list'} >Lista</Link></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><Link to={'/count'} >Contador</Link></li>                                    
-                                    <li role="separator" className="divider"></li>
-                                    <li><Link to={'/githubuser'} >GitHub Usuario</Link></li>  
-                                </ul>
-                            </li>
+                            {menuItem}
                         </ul>                        
                         </div>
                     </div>
                     </nav>
                     <Switch>
-                        <Route exact path='/' component={Home} />
-                        <Route exact path='/list' component={List} />
-                        <Route exact path='/count' component={Count} />
-                        <Route exact path='/githubuser' component={Githubuser} />
-                    </Switch>
+                        {routeItem}
+                    </Switch>                    
                 </div>                                                
             </Router>              
         );
