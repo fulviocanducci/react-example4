@@ -51,7 +51,7 @@ class List extends Component {
                     click={this.onHandleClickButtonAdd.bind(this)}
                     listInfo={this.state.listInfo}
                     clickCount={this.onHandleClickButtonAddCount.bind(this)}
-                    clickCancel={this.onHandleClickButtonCancel.bind(this)} / >
+                    clickCancel={this.onHandleClickButtonCancel.bind(this)} />
             </Body>
         )
     }

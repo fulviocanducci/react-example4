@@ -79,7 +79,7 @@ class Githubuser extends Component {
                             <input type="text" name="userName" onChange={this.onHandleChange.bind(this)} value={this.state.userName} className="form-control" placeholder="Digite o nome do usuário" required/>                    
                             <span className="input-group-btn">
                                 <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}>Carregar</button>
-                                <button className="btn btn-danger" type="button" onClick={this.onHandleClickCancel.bind(this)} ><span class="glyphicon glyphicon-trash"></span></button>
+                                <button className="btn btn-danger" type="button" onClick={this.onHandleClickCancel.bind(this)} ><span className="glyphicon glyphicon-trash"></span></button>
                             </span>
                         </div>
                     </div>   
