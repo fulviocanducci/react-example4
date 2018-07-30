@@ -1,4 +1,5 @@
 import React, { Component  } from "react";
+import Moment from 'react-moment';
 import Body from "./body";
 import axios from 'axios';
 import './githubuser.css';
@@ -50,21 +51,23 @@ class Githubuser extends Component {
                 ?   <div className="thumbnail border-marge">
                         <img src={this.state.user.avatar_url} alt={this.state.user.login} />
                         <div className="caption">
-                            <h3>{this.state.user.login}</h3>
-                            <p>...</p>                        
+                            <h3>{this.state.user.name}</h3>                            
+                            <hr style={{marginTop:0,marginBotton:5}} />
+                            <div>Seguidores: {this.state.user.followers}</div>
+                            <div>Segue: {this.state.user.following}</div>
                         </div>
                     </div> 
                 :   null;
+                console.log(this.state.user);
         const userRepositories = (this.state.repository && this.state.repository.length > 0)
                 ?                       
                     this.state.repository.map((item, key) => {
                         return (
-                        <div className="thumbnail border-marge" key={key}>  
-                            <div>
-                                <h5>{item.name}</h5>                            
-                            </div>                      
-                            <div key={key}><a href="{item.html_url}" target="_blank">{item.name}</a></div>
-                            <div>Criado em: {item.created_at}</div>
+                        <div className="thumbnail border-marge" key={key}>                                              
+                            <div key={key}><a href={item.html_url} target="_blank">{item.name}</a><hr style={{margin:0}} /></div>
+                            <div><code>Criado:</code> <Moment format="DD/MM/YYYY">{item.created_at}</Moment></div>
+                            <div><code>Última atualização:</code> <Moment format="DD/MM/YYYY">{item.updated_at}</Moment></div>
+                            <div><code>Linguagem:</code> {item.language ?  item.language : 'desconhecida'}</div>
                         </div> 
                         )
                     })                              
