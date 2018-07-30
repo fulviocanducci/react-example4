@@ -51,7 +51,7 @@ class Githubuser extends Component {
                 ?   <div className="thumbnail border-marge">
                         <img src={this.state.user.avatar_url} alt={this.state.user.login} />
                         <div className="caption">
-                            <h3>{this.state.user.name}</h3>                            
+                            <h3>{this.state.user.name || this.state.user.login}</h3>                            
                             <hr style={{marginTop:0,marginBotton:5}} />
                             <div>Seguidores: {this.state.user.followers}</div>
                             <div>Segue: {this.state.user.following}</div>
