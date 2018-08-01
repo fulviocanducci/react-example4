@@ -28,7 +28,7 @@ class Githubuser extends Component {
     }
 
     onHandleClickUserInfo(){
-        this.setState({statusBtn: true, user: null, repository: null});                 
+        this.setState({statusBtn: true, user: null, repository: null, show: false});                 
         axios.get('https://api.github.com/users/:user'.replace(':user', this.state.userName))
             .then((response) => {
                 if (response.status === 200){
@@ -56,7 +56,7 @@ class Githubuser extends Component {
     }
 
     onHandleClickCancel() {
-        this.setState({userName: '', user: null, repository: null });
+        this.setState({userName: '', user: null, repository: null, show: false });
         this.onFocusUserName();        
     }
 
@@ -73,8 +73,7 @@ class Githubuser extends Component {
                     </div> 
                 :   null;                
         const userRepositories = (this.state.repository && this.state.repository.length > 0)
-                ?                       
-                    this.state.repository.map((item, key) => {
+                ?   this.state.repository.map((item, key) => {
                         return (
                         <div className="thumbnail border-marge" key={key}>                                              
                             <div key={key}><a href={item.html_url} target="_blank">{item.name}</a><hr style={{margin:0}} /></div>
@@ -95,7 +94,9 @@ class Githubuser extends Component {
                         <div className="input-group">                        
                             <input type="text" ref={this.refUserName} name="userName" onChange={this.onHandleChange.bind(this)} value={this.state.userName} className="form-control" placeholder="Digite o nome do usuário" required/>                    
                             <span className="input-group-btn">
-                                <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}><i className={'fa fa-circle-o-notch ' + (this.state.statusBtn?'fa-spin':'')} aria-hidden="true"></i> Carregar</button>
+                                <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}><i className={'fa fa-circle-o-notch ' + (this.state.statusBtn?'fa-spin':'')} aria-hidden="true"></i> 
+                                {(this.state.statusBtn?'Aguarde':'Carregar')}
+                                </button>
                                 <button className="btn btn-danger" type="button" onClick={this.onHandleClickCancel.bind(this)} ><span className="glyphicon glyphicon-trash"></span></button>
                             </span>
                         </div>
