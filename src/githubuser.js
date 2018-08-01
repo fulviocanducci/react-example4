@@ -1,5 +1,6 @@
 import React, { Component  } from "react";
 import Moment from 'react-moment';
+import SweetAlert from 'react-bootstrap-sweetalert';
 import Body from "./body";
 import axios from 'axios';
 import './githubuser.css';
@@ -8,12 +9,8 @@ class Githubuser extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            userName: '',
-            user: null,
-            repository: null,
-        };
-        this.refUserName = React.createRef();        
+        this.state = { userName: '', user: null, repository: null, statusBtn: false, show: false };
+        this.refUserName = React.createRef();                  
     }
 
     componentDidMount () {
@@ -31,6 +28,7 @@ class Githubuser extends Component {
     }
 
     onHandleClickUserInfo(){
+        this.setState({statusBtn: true, user: null, repository: null});                 
         axios.get('https://api.github.com/users/:user'.replace(':user', this.state.userName))
             .then((response) => {
                 if (response.status === 200){
@@ -43,18 +41,23 @@ class Githubuser extends Component {
                             }
                         });
                 } else {
-                    alert("Usuário inválido");
-                }
-            });
+                    this.setState({ show: true })
+                }                                
+            })
+            .catch(function (error) {
+                if (error.response) {                    
+                    this.setState({ show: true });
+                }                                
+            }
+            .bind(this))
+            .then(function() {
+                this.setState({statusBtn: false});
+            }.bind(this));
     }
 
     onHandleClickCancel() {
-        this.setState({
-            userName: '',
-            user: null,
-            repository: null,
-        });
-        this.onFocusUserName();
+        this.setState({userName: '', user: null, repository: null });
+        this.onFocusUserName();        
     }
 
     render() {
@@ -83,7 +86,8 @@ class Githubuser extends Component {
                     })                              
                 :   null;
         return (
-            <Body title="Github - Dados dos usuários">
+            <Body title="Github - Dados dos usuários">  
+                <SweetAlert show={this.state.show} title="Usuário inválido" text="Usuário inválido" onConfirm={() => this.setState({ show: false })} />
                 <h4>Informações do usuário</h4>
                 <hr className="hr-margin" />
                 <div className="row">
@@ -91,7 +95,7 @@ class Githubuser extends Component {
                         <div className="input-group">                        
                             <input type="text" ref={this.refUserName} name="userName" onChange={this.onHandleChange.bind(this)} value={this.state.userName} className="form-control" placeholder="Digite o nome do usuário" required/>                    
                             <span className="input-group-btn">
-                                <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}>Carregar</button>
+                                <button className="btn btn-default" type="button" onClick={this.onHandleClickUserInfo.bind(this)} disabled={!(this.state.userName && this.state.userName.length > 0)}><i className={'fa fa-circle-o-notch ' + (this.state.statusBtn?'fa-spin':'')} aria-hidden="true"></i> Carregar</button>
                                 <button className="btn btn-danger" type="button" onClick={this.onHandleClickCancel.bind(this)} ><span className="glyphicon glyphicon-trash"></span></button>
                             </span>
                         </div>
