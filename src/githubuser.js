@@ -68,7 +68,7 @@ class Githubuser extends Component {
                             <h3>{this.state.user.name || this.state.user.login}</h3>                            
                             <hr style={{marginTop:0,marginBotton:5}} />
                             <div>Seguidores: {this.state.user.followers}</div>
-                            <div>Segue: {this.state.user.following}</div>
+                            <div>Segue: {this.state.user.following}</div>                            
                         </div>
                     </div> 
                 :   null;                
